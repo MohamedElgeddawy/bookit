@@ -1,10 +1,36 @@
-
 import Image from 'next/image';
 import Link from 'next/link';
 import Heading from '@/components/Heading';
 import { FaChevronLeft } from 'react-icons/fa';
 import BookingForm from '@/components/BookingForm';
 import getSingleRoom from '@/app/actions/getSingleRoom';
+import DynamicSchedule from '@/components/DynamicSchedule';
+
+// Format schedule text to be more user-friendly
+const formatSchedule = (schedule) => {
+  if (!schedule) return 'Schedule not specified';
+
+  // Fix common typos and format the schedule
+  let formattedSchedule = schedule
+    .replace(/moday/gi, 'Monday')
+    .replace(/tuesday/gi, 'Tuesday')
+    .replace(/wednesday/gi, 'Wednesday')
+    .replace(/thursday/gi, 'Thursday')
+    .replace(/friday/gi, 'Friday')
+    .replace(/saturday/gi, 'Saturday')
+    .replace(/sunday/gi, 'Sunday')
+    .replace(/am/gi, 'AM')
+    .replace(/pm/gi, 'PM');
+
+  // Add proper spacing and formatting
+  formattedSchedule = formattedSchedule
+    .replace(/(\d+)(am|pm)/gi, '$1 $2')
+    .replace(/(\d+)(AM|PM)/gi, '$1 $2')
+    .replace(/\s+/g, ' ')
+    .trim();
+
+  return formattedSchedule;
+};
 
 const RoomPage = async ({ params }) => {
   const { id: roomId } = await params;
@@ -60,11 +86,11 @@ const RoomPage = async ({ params }) => {
                 <span className="font-semibold text-gray-800">Capacity:</span>{' '}
                 {room.capacity} people
               </li>
-              <li>
-                <span className="font-semibold text-gray-800">
-                  Availability:
-                </span>{' '}
-                {room.availability}
+              <li className="flex flex-col">
+                <span className="font-semibold text-gray-800 mb-2">
+                  Schedule:
+                </span>
+                <DynamicSchedule room={room} />
               </li>
               <li>
                 <span className="font-semibold text-gray-800">Price:</span> $
