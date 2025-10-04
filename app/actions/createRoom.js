@@ -2,6 +2,7 @@
 import { createAdminClient } from '@/config/appwrite';
 import checkAuth from './checkAuth';
 import { ID } from 'node-appwrite';
+import { revalidatePath } from 'next/cache';
 
 async function createRoom(previousState, formData) {
   console.log(
@@ -84,6 +85,10 @@ async function createRoom(previousState, formData) {
     );
 
     console.log('Room created successfully:', newRoom);
+
+    // Revalidate the rooms pages to show the new room
+    revalidatePath('/', 'layout'); // Revalidate home page (rooms listing)
+    revalidatePath('/rooms/my', 'layout'); // Revalidate my rooms page
 
     return {
       success: true,

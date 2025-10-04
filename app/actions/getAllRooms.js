@@ -7,12 +7,18 @@ async function getAllRooms() {
   try {
     const { databases } = await createAdminClient();
 
+    console.log('Fetching rooms from:', {
+      database: process.env.NEXT_PUBLIC_APPWRITE_DATABASE,
+      collection: process.env.NEXT_PUBLIC_APPWRITE_TABLES_Rooms,
+    });
+
     // fetch rooms
     const { documents: rooms } = await databases.listDocuments(
       process.env.NEXT_PUBLIC_APPWRITE_DATABASE,
       process.env.NEXT_PUBLIC_APPWRITE_TABLES_Rooms,
     );
 
+    console.log('Found rooms:', rooms.length);
     return rooms;
   } catch (error) {
     console.log('Failed to get rooms', error);
