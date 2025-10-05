@@ -1,6 +1,7 @@
 'use server';
 import { createAdminClient } from '@/config/appwrite';
 import { cookies } from 'next/headers';
+import { Query } from 'node-appwrite';
 
 async function createSession(previousState, formData) {
   const email = formData.get('email');
@@ -12,11 +13,25 @@ async function createSession(previousState, formData) {
     };
   }
 
-  // Get account instance
-  const { account } = await createAdminClient();
+  // Get account and databases instance
+  const { account, databases } = await createAdminClient();
 
   try {
-    //  Generate session
+    // First, check if user exists in our database
+    const { documents: users } = await databases.listDocuments(
+      process.env.NEXT_PUBLIC_APPWRITE_DATABASE,
+      process.env.NEXT_PUBLIC_APPWRITE_TABLES_Users || 'users',
+      [Query.equal('email', email)],
+    );
+
+    if (users.length === 0) {
+      return {
+        error: 'User not found. Please register first.',
+        redirectToRegister: true,
+      };
+    }
+
+    // Generate session
     const session = await account.createEmailPasswordSession(email, password);
 
     // Create cookie
@@ -34,8 +49,24 @@ async function createSession(previousState, formData) {
     };
   } catch (error) {
     console.log('Authentication Error: ', error);
+
+    // Check if it's a user not found error
+    if (error.message && error.message.includes('user_not_found')) {
+      return {
+        error: 'User not found. Please register first.',
+        redirectToRegister: true,
+      };
+    }
+
+    // Check if it's an invalid password error
+    if (error.message && error.message.includes('invalid_password')) {
+      return {
+        error: 'Invalid password. Please check your password.',
+      };
+    }
+
     return {
-      error: 'Invalid Credentials',
+      error: 'Invalid credentials. Please check your email and password.',
     };
   }
 }

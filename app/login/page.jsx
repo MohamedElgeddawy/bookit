@@ -19,6 +19,7 @@ const LoginPage = () => {
     password: '',
   });
   const [errors, setErrors] = useState({});
+  const [isRedirecting, setIsRedirecting] = useState(false);
 
   useEffect(() => {
     if (state.success) {
@@ -29,6 +30,14 @@ const LoginPage = () => {
     if (state.error) {
       toast.error(state.error);
       setErrors({ general: state.error });
+
+      // If user not found, redirect to register page
+      if (state.redirectToRegister) {
+        setIsRedirecting(true);
+        setTimeout(() => {
+          router.push('/register');
+        }, 2000); // Wait 2 seconds to show the error message
+      }
     }
     if (state.message) {
       setIsAuthenticated(true);
@@ -94,8 +103,19 @@ const LoginPage = () => {
 
           {/* General Error Message */}
           {errors.general && (
-            <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
+            <div
+              className={`mb-4 p-3 border text-red-700 rounded ${
+                state.redirectToRegister
+                  ? 'bg-blue-100 border-blue-400'
+                  : 'bg-red-100 border-red-400'
+              }`}
+            >
               {errors.general}
+              {state.redirectToRegister && (
+                <p className="text-sm mt-1 text-blue-600">
+                  Redirecting to registration page...
+                </p>
+              )}
             </div>
           )}
 
@@ -161,9 +181,14 @@ const LoginPage = () => {
           <div className="flex flex-col gap-5">
             <button
               type="submit"
-              className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
+              disabled={isRedirecting}
+              className={`px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors ${
+                isRedirecting
+                  ? 'bg-gray-400 text-gray-200 cursor-not-allowed'
+                  : 'bg-blue-500 text-white hover:bg-blue-700'
+              }`}
             >
-              Login
+              {isRedirecting ? 'Redirecting...' : 'Login'}
             </button>
 
             <p className="text-center text-gray-600">
