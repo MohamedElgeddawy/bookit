@@ -12,7 +12,7 @@ export const useTheme = () => {
 };
 
 export const ThemeProvider = ({ children }) => {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [theme, setTheme] = useState('light');
 
   useEffect(() => {
     // Check for saved theme preference or default to light mode
@@ -21,28 +21,30 @@ export const ThemeProvider = ({ children }) => {
       '(prefers-color-scheme: dark)',
     ).matches;
 
-    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
-      setIsDarkMode(true);
+    if (savedTheme) {
+      setTheme(savedTheme);
+    } else if (prefersDark) {
+      setTheme('dark');
     }
   }, []);
 
   useEffect(() => {
     // Update localStorage and document class when theme changes
-    localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+    localStorage.setItem('theme', theme);
 
-    if (isDarkMode) {
+    if (theme === 'dark') {
       document.documentElement.classList.add('dark');
     } else {
       document.documentElement.classList.remove('dark');
     }
-  }, [isDarkMode]);
+  }, [theme]);
 
   const toggleTheme = () => {
-    setIsDarkMode(!isDarkMode);
+    setTheme(theme === 'light' ? 'dark' : 'light');
   };
 
   const value = {
-    isDarkMode,
+    theme,
     toggleTheme,
   };
 
