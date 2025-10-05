@@ -21,27 +21,36 @@ const BookingCard = ({ booking }) => {
   const checkOut = formatDate(check_out);
 
   return (
-    <div className="bg-white shadow rounded-lg p-4 mt-4 flex flex-col sm:flex-row justify-between items-start sm:items-center">
+    <div className="bg-white dark:bg-gray-800 shadow rounded-lg p-4 mt-4 flex flex-col sm:flex-row justify-between items-start sm:items-center">
       <div>
-        <h4 className="text-lg font-semibold">{room_name}</h4>
+        <h4 className="text-lg font-semibold text-gray-900 dark:text-white">
+          {room_name}
+        </h4>
         {room_location && (
-          <p className="text-sm text-gray-500 mb-2">
-            <strong>Location:</strong> {room_location}
+          <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">
+            <strong className="text-gray-700 dark:text-gray-300">
+              Location:
+            </strong>{' '}
+            {room_location}
           </p>
         )}
-        <p className="text-sm text-gray-600">
-          <strong>Check In:</strong> {checkIn.month} {checkIn.day},{' '}
-          {checkIn.year} {checkIn.time}
+        <p className="text-sm text-gray-600 dark:text-gray-300">
+          <strong className="text-gray-700 dark:text-gray-300">
+            Check In:
+          </strong>{' '}
+          {checkIn.month} {checkIn.day}, {checkIn.year} {checkIn.time}
         </p>
-        <p className="text-sm text-gray-600">
-          <strong>Check Out:</strong> {checkOut.month} {checkOut.day},{' '}
-          {checkOut.year} {checkOut.time}
+        <p className="text-sm text-gray-600 dark:text-gray-300">
+          <strong className="text-gray-700 dark:text-gray-300">
+            Check Out:
+          </strong>{' '}
+          {checkOut.month} {checkOut.day}, {checkOut.year} {checkOut.time}
         </p>
       </div>
       <div className="flex flex-col sm:flex-row w-full sm:w-auto sm:space-x-2 mt-2 sm:mt-0">
         <Link
           href={`/rooms/${room_id}`}
-          className="bg-blue-500 text-white px-4 py-2 rounded mb-2 sm:mb-0 w-full sm:w-auto text-center hover:bg-blue-700"
+          className="bg-blue-500 dark:bg-blue-600 text-white px-4 py-2 rounded mb-2 sm:mb-0 w-full sm:w-auto text-center hover:bg-blue-700 dark:hover:bg-blue-700 transition-colors"
         >
           View Room
         </Link>

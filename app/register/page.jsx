@@ -95,6 +95,7 @@ const RegisterPage = () => {
       formDataObj.append('name', formData.name);
       formDataObj.append('email', formData.email);
       formDataObj.append('password', formData.password);
+      formDataObj.append('confirm-password', formData.confirmPassword);
       formAction(formDataObj);
     }
   };
@@ -109,7 +110,7 @@ const RegisterPage = () => {
 
           {/* General Error Message */}
           {errors.general && (
-            <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
+            <div className="mb-4 p-3 bg-red-100 dark:bg-red-900 border border-red-400 dark:border-red-600 text-red-700 dark:text-red-400 rounded">
               {errors.general}
             </div>
           )}
@@ -117,7 +118,7 @@ const RegisterPage = () => {
           <div className="mb-4">
             <label
               htmlFor="name"
-              className="block text-gray-700 font-bold mb-2"
+              className="block text-gray-700 dark:text-gray-300 font-bold mb-2"
             >
               Name
             </label>
@@ -127,20 +128,24 @@ const RegisterPage = () => {
               name="name"
               value={formData.name}
               onChange={handleInputChange}
-              className={`border rounded w-full py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                errors.name ? 'border-red-500' : 'border-gray-300'
+              className={`border rounded w-full py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white ${
+                errors.name
+                  ? 'border-red-500'
+                  : 'border-gray-300 dark:border-gray-600'
               }`}
               placeholder="Enter your full name"
             />
             {errors.name && (
-              <p className="text-red-500 text-sm mt-1">{errors.name}</p>
+              <p className="text-red-500 dark:text-red-400 text-sm mt-1">
+                {errors.name}
+              </p>
             )}
           </div>
 
           <div className="mb-4">
             <label
               htmlFor="email"
-              className="block text-gray-700 font-bold mb-2"
+              className="block text-gray-700 dark:text-gray-300 font-bold mb-2"
             >
               Email
             </label>
@@ -150,20 +155,24 @@ const RegisterPage = () => {
               name="email"
               value={formData.email}
               onChange={handleInputChange}
-              className={`border rounded w-full py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                errors.email ? 'border-red-500' : 'border-gray-300'
+              className={`border rounded w-full py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white ${
+                errors.email
+                  ? 'border-red-500'
+                  : 'border-gray-300 dark:border-gray-600'
               }`}
               placeholder="Enter your email"
             />
             {errors.email && (
-              <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+              <p className="text-red-500 dark:text-red-400 text-sm mt-1">
+                {errors.email}
+              </p>
             )}
           </div>
 
           <div className="mb-4">
             <label
               htmlFor="password"
-              className="block text-gray-700 font-bold mb-2"
+              className="block text-gray-700 dark:text-gray-300 font-bold mb-2"
             >
               Password
             </label>
@@ -174,8 +183,10 @@ const RegisterPage = () => {
                 name="password"
                 value={formData.password}
                 onChange={handleInputChange}
-                className={`border rounded w-full py-2 px-3 pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                  errors.password ? 'border-red-500' : 'border-gray-300'
+                className={`border rounded w-full py-2 px-3 pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white ${
+                  errors.password
+                    ? 'border-red-500'
+                    : 'border-gray-300 dark:border-gray-600'
                 }`}
                 placeholder="Enter your password"
               />
@@ -192,14 +203,16 @@ const RegisterPage = () => {
               </button>
             </div>
             {errors.password && (
-              <p className="text-red-500 text-sm mt-1">{errors.password}</p>
+              <p className="text-red-500 dark:text-red-400 text-sm mt-1">
+                {errors.password}
+              </p>
             )}
           </div>
 
           <div className="mb-6">
             <label
               htmlFor="confirmPassword"
-              className="block text-gray-700 font-bold mb-2"
+              className="block text-gray-700 dark:text-gray-300 font-bold mb-2"
             >
               Confirm Password
             </label>
@@ -210,8 +223,10 @@ const RegisterPage = () => {
                 name="confirmPassword"
                 value={formData.confirmPassword}
                 onChange={handleInputChange}
-                className={`border rounded w-full py-2 px-3 pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                  errors.confirmPassword ? 'border-red-500' : 'border-gray-300'
+                className={`border rounded w-full py-2 px-3 pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white ${
+                  errors.confirmPassword
+                    ? 'border-red-500'
+                    : 'border-gray-300 dark:border-gray-600'
                 }`}
                 placeholder="Confirm your password"
               />
@@ -228,7 +243,7 @@ const RegisterPage = () => {
               </button>
             </div>
             {errors.confirmPassword && (
-              <p className="text-red-500 text-sm mt-1">
+              <p className="text-red-500 dark:text-red-400 text-sm mt-1">
                 {errors.confirmPassword}
               </p>
             )}
@@ -242,11 +257,11 @@ const RegisterPage = () => {
               Register
             </button>
 
-            <p className="text-center text-gray-600">
+            <p className="text-center text-gray-600 dark:text-gray-400">
               Have an account?{' '}
               <Link
                 href="/login"
-                className="text-blue-500 hover:text-blue-700 font-medium"
+                className="text-blue-500 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium"
               >
                 Login here
               </Link>

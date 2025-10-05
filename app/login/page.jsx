@@ -104,15 +104,15 @@ const LoginPage = () => {
           {/* General Error Message */}
           {errors.general && (
             <div
-              className={`mb-4 p-3 border text-red-700 rounded ${
+              className={`mb-4 p-3 border text-red-700 dark:text-red-400 rounded ${
                 state.redirectToRegister
-                  ? 'bg-blue-100 border-blue-400'
-                  : 'bg-red-100 border-red-400'
+                  ? 'bg-blue-100 dark:bg-blue-900 border-blue-400 dark:border-blue-600'
+                  : 'bg-red-100 dark:bg-red-900 border-red-400 dark:border-red-600'
               }`}
             >
               {errors.general}
               {state.redirectToRegister && (
-                <p className="text-sm mt-1 text-blue-600">
+                <p className="text-sm mt-1 text-blue-600 dark:text-blue-400">
                   Redirecting to registration page...
                 </p>
               )}
@@ -122,7 +122,7 @@ const LoginPage = () => {
           <div className="mb-4">
             <label
               htmlFor="email"
-              className="block text-gray-700 font-bold mb-2"
+              className="block text-gray-700 dark:text-gray-300 font-bold mb-2"
             >
               Email
             </label>
@@ -132,20 +132,24 @@ const LoginPage = () => {
               name="email"
               value={formData.email}
               onChange={handleInputChange}
-              className={`border rounded w-full py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                errors.email ? 'border-red-500' : 'border-gray-300'
+              className={`border rounded w-full py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white ${
+                errors.email
+                  ? 'border-red-500'
+                  : 'border-gray-300 dark:border-gray-600'
               }`}
               placeholder="Enter your email"
             />
             {errors.email && (
-              <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+              <p className="text-red-500 dark:text-red-400 text-sm mt-1">
+                {errors.email}
+              </p>
             )}
           </div>
 
           <div className="mb-6">
             <label
               htmlFor="password"
-              className="block text-gray-700 font-bold mb-2"
+              className="block text-gray-700 dark:text-gray-300 font-bold mb-2"
             >
               Password
             </label>
@@ -156,8 +160,10 @@ const LoginPage = () => {
                 name="password"
                 value={formData.password}
                 onChange={handleInputChange}
-                className={`border rounded w-full py-2 px-3 pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                  errors.password ? 'border-red-500' : 'border-gray-300'
+                className={`border rounded w-full py-2 px-3 pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white ${
+                  errors.password
+                    ? 'border-red-500'
+                    : 'border-gray-300 dark:border-gray-600'
                 }`}
                 placeholder="Enter your password"
               />
@@ -174,7 +180,9 @@ const LoginPage = () => {
               </button>
             </div>
             {errors.password && (
-              <p className="text-red-500 text-sm mt-1">{errors.password}</p>
+              <p className="text-red-500 dark:text-red-400 text-sm mt-1">
+                {errors.password}
+              </p>
             )}
           </div>
 
@@ -191,11 +199,11 @@ const LoginPage = () => {
               {isRedirecting ? 'Redirecting...' : 'Login'}
             </button>
 
-            <p className="text-center text-gray-600">
+            <p className="text-center text-gray-600 dark:text-gray-400">
               No account?{' '}
               <Link
                 href="/register"
-                className="text-blue-500 hover:text-blue-700 font-medium"
+                className="text-blue-500 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium"
               >
                 Register here
               </Link>

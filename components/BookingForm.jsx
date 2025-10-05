@@ -99,25 +99,30 @@ const BookingForm = ({ room }) => {
   };
 
   const getAvailabilityColor = () => {
-    if (availabilityStatus.isChecking) return 'text-blue-600';
-    if (availabilityStatus.isAvailable === true) return 'text-green-600';
-    if (availabilityStatus.isAvailable === false) return 'text-red-600';
-    return 'text-gray-600';
+    if (availabilityStatus.isChecking)
+      return 'text-blue-600 dark:text-blue-400';
+    if (availabilityStatus.isAvailable === true)
+      return 'text-green-600 dark:text-green-400';
+    if (availabilityStatus.isAvailable === false)
+      return 'text-red-600 dark:text-red-400';
+    return 'text-gray-600 dark:text-gray-400';
   };
 
   return (
     <div className="mt-6">
-      <h2 className="text-xl font-bold">Book this Room</h2>
+      <h2 className="text-xl font-bold text-gray-900 dark:text-white">
+        Book this Room
+      </h2>
 
       {/* Availability Status */}
       {availabilityStatus.message && (
         <div
           className={`mt-2 p-3 rounded-md ${
             availabilityStatus.isAvailable === true
-              ? 'bg-green-50 border border-green-200'
+              ? 'bg-green-50 dark:bg-green-900 border border-green-200 dark:border-green-600'
               : availabilityStatus.isAvailable === false
-              ? 'bg-red-50 border border-red-200'
-              : 'bg-blue-50 border border-blue-200'
+              ? 'bg-red-50 dark:bg-red-900 border border-red-200 dark:border-red-600'
+              : 'bg-blue-50 dark:bg-blue-900 border border-blue-200 dark:border-blue-600'
           }`}
         >
           <p className={`text-sm font-medium ${getAvailabilityColor()}`}>
@@ -135,7 +140,7 @@ const BookingForm = ({ room }) => {
           <div>
             <label
               htmlFor="check_in_date"
-              className="block text-sm font-medium text-gray-700"
+              className="block text-sm font-medium text-gray-700 dark:text-gray-300"
             >
               Check-In Date
             </label>
@@ -145,14 +150,14 @@ const BookingForm = ({ room }) => {
               name="check_in_date"
               value={formData.check_in_date}
               onChange={handleInputChange}
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
               required
             />
           </div>
           <div>
             <label
               htmlFor="check_in_time"
-              className="block text-sm font-medium text-gray-700"
+              className="block text-sm font-medium text-gray-700 dark:text-gray-300"
             >
               Check-In Time
             </label>
@@ -162,14 +167,14 @@ const BookingForm = ({ room }) => {
               name="check_in_time"
               value={formData.check_in_time}
               onChange={handleInputChange}
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
               required
             />
           </div>
           <div>
             <label
               htmlFor="check_out_date"
-              className="block text-sm font-medium text-gray-700"
+              className="block text-sm font-medium text-gray-700 dark:text-gray-300"
             >
               Check-Out Date
             </label>
@@ -179,14 +184,14 @@ const BookingForm = ({ room }) => {
               name="check_out_date"
               value={formData.check_out_date}
               onChange={handleInputChange}
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
               required
             />
           </div>
           <div>
             <label
               htmlFor="check_out_time"
-              className="block text-sm font-medium text-gray-700"
+              className="block text-sm font-medium text-gray-700 dark:text-gray-300"
             >
               Check-Out Time
             </label>
@@ -196,7 +201,7 @@ const BookingForm = ({ room }) => {
               name="check_out_time"
               value={formData.check_out_time}
               onChange={handleInputChange}
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
               required
             />
           </div>
@@ -212,8 +217,8 @@ const BookingForm = ({ room }) => {
             className={`w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2 ${
               availabilityStatus.isAvailable === false ||
               availabilityStatus.isChecking
-                ? 'bg-gray-400 cursor-not-allowed focus:ring-gray-400'
-                : 'bg-black hover:bg-gray-700 focus:ring-gray-800'
+                ? 'bg-gray-400 dark:bg-gray-600 cursor-not-allowed focus:ring-gray-400 dark:focus:ring-gray-600'
+                : 'bg-black dark:bg-gray-800 hover:bg-gray-700 dark:hover:bg-gray-700 focus:ring-gray-800 dark:focus:ring-gray-600'
             }`}
           >
             {availabilityStatus.isChecking ? 'Checking...' : 'Book Room'}
