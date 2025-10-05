@@ -17,22 +17,11 @@ async function createSession(previousState, formData) {
   const { account, databases } = await createAdminClient();
 
   try {
-    // First, check if user exists in our database
-    const { documents: users } = await databases.listDocuments(
-      process.env.NEXT_PUBLIC_APPWRITE_DATABASE,
-      process.env.NEXT_PUBLIC_APPWRITE_TABLES_Users || 'users',
-      [Query.equal('email', email)],
-    );
+    console.log('Attempting login for email:', email);
 
-    if (users.length === 0) {
-      return {
-        error: 'User not found. Please register first.',
-        redirectToRegister: true,
-      };
-    }
-
-    // Generate session
+    // Try to create session directly with Appwrite first
     const session = await account.createEmailPasswordSession(email, password);
+    console.log('Session created successfully:', session.$id);
 
     // Create cookie
     const cookieStore = await cookies();
@@ -49,6 +38,8 @@ async function createSession(previousState, formData) {
     };
   } catch (error) {
     console.log('Authentication Error: ', error);
+    console.log('Error code:', error.code);
+    console.log('Error message:', error.message);
 
     // Check if it's a user not found error
     if (error.message && error.message.includes('user_not_found')) {
@@ -65,8 +56,22 @@ async function createSession(previousState, formData) {
       };
     }
 
+    // Check for specific Appwrite error codes
+    if (error.code === 401) {
+      return {
+        error: 'Invalid email or password. Please check your credentials.',
+      };
+    }
+
+    if (error.code === 404) {
+      return {
+        error: 'User not found. Please register first.',
+        redirectToRegister: true,
+      };
+    }
+
     return {
-      error: 'Invalid credentials. Please check your email and password.',
+      error: `Login failed: ${error.message || 'Unknown error'}`,
     };
   }
 }

@@ -14,7 +14,9 @@ const BookingsPage = async () => {
           <BookingCard key={booking.$id} booking={booking} />
         ))
       ) : (
-        <p>You have no bookings</p>
+        <div className="bg-white dark:bg-gray-800 shadow rounded-lg p-6 mt-4">
+          <p className="text-gray-900 dark:text-white">You have no bookings</p>
+        </div>
       )}
     </div>
   );

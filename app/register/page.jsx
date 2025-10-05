@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { useActionState } from 'react';
 import createUser from '../actions/createUser';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, startTransition } from 'react';
 import { useAuth } from '@/context/authContext';
 import { toast } from 'react-toastify';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
@@ -96,7 +96,11 @@ const RegisterPage = () => {
       formDataObj.append('email', formData.email);
       formDataObj.append('password', formData.password);
       formDataObj.append('confirm-password', formData.confirmPassword);
-      formAction(formDataObj);
+
+      // Use startTransition to properly handle the async action
+      startTransition(() => {
+        formAction(formDataObj);
+      });
     }
   };
 

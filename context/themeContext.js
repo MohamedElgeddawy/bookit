@@ -13,8 +13,11 @@ export const useTheme = () => {
 
 export const ThemeProvider = ({ children }) => {
   const [theme, setTheme] = useState('light');
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
+
     // Check for saved theme preference or default to light mode
     const savedTheme = localStorage.getItem('theme');
     const prefersDark = window.matchMedia(
@@ -29,6 +32,8 @@ export const ThemeProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
+    if (!mounted) return;
+
     // Update localStorage and document class when theme changes
     localStorage.setItem('theme', theme);
 
@@ -37,7 +42,7 @@ export const ThemeProvider = ({ children }) => {
     } else {
       document.documentElement.classList.remove('dark');
     }
-  }, [theme]);
+  }, [theme, mounted]);
 
   const toggleTheme = () => {
     setTheme(theme === 'light' ? 'dark' : 'light');
@@ -46,6 +51,7 @@ export const ThemeProvider = ({ children }) => {
   const value = {
     theme,
     toggleTheme,
+    mounted,
   };
 
   return (

@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, startTransition } from 'react';
 import { useActionState } from 'react';
 import { toast } from 'react-toastify';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
@@ -89,7 +89,11 @@ const LoginPage = () => {
       const formDataObj = new FormData();
       formDataObj.append('email', formData.email);
       formDataObj.append('password', formData.password);
-      formAction(formDataObj);
+
+      // Use startTransition to properly handle the async action
+      startTransition(() => {
+        formAction(formDataObj);
+      });
     }
   };
 

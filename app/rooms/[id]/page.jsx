@@ -56,10 +56,10 @@ const RoomPage = async ({ params }) => {
   return (
     <>
       <Heading title={room.name} />
-      <div className="bg-white shadow rounded-lg p-6">
+      <div className="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
         <Link
           href="/"
-          className="flex items-center text-gray-600 hover:text-gray-800 mb-4"
+          className="flex items-center text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 mb-4"
         >
           <FaChevronLeft className="w-4 h-4 mr-2" />
           <span>Back to Rooms</span>
@@ -75,38 +75,64 @@ const RoomPage = async ({ params }) => {
           />
 
           <div className="mt-4 sm:mt-0 sm:flex-1">
-            <p className="text-gray-600 mb-4">{room.description}</p>
+            <p className="text-gray-600 dark:text-gray-300 mb-4">
+              {room.description}
+            </p>
 
             <ul className="space-y-2">
               <li>
-                <span className="font-semibold text-gray-800">Size:</span>{' '}
-                {room.sqft} sq ft
+                <span className="font-semibold text-gray-800 dark:text-gray-200">
+                  Size:
+                </span>{' '}
+                <span className="text-gray-600 dark:text-gray-300">
+                  {room.sqft} sq ft
+                </span>
               </li>
               <li>
-                <span className="font-semibold text-gray-800">Capacity:</span>{' '}
-                {room.capacity} people
+                <span className="font-semibold text-gray-800 dark:text-gray-200">
+                  Capacity:
+                </span>{' '}
+                <span className="text-gray-600 dark:text-gray-300">
+                  {room.capacity} people
+                </span>
               </li>
               <li className="flex flex-col">
-                <span className="font-semibold text-gray-800 mb-2">
+                <span className="font-semibold text-gray-800 dark:text-gray-200 mb-2">
                   Schedule:
                 </span>
                 <DynamicSchedule room={room} />
               </li>
               <li>
-                <span className="font-semibold text-gray-800">Price:</span> $
-                {room.price_per_hour}/hour
+                <span className="font-semibold text-gray-800 dark:text-gray-200">
+                  Price:
+                </span>{' '}
+                <span className="text-gray-600 dark:text-gray-300">
+                  ${room.price_per_hour}/hour
+                </span>
               </li>
               <li>
-                <span className="font-semibold text-gray-800">Location:</span>{' '}
-                {room.location}
+                <span className="font-semibold text-gray-800 dark:text-gray-200">
+                  Location:
+                </span>{' '}
+                <span className="text-gray-600 dark:text-gray-300">
+                  {room.location}
+                </span>
               </li>
               <li>
-                <span className="font-semibold text-gray-800">Address:</span>{' '}
-                {room.address}
+                <span className="font-semibold text-gray-800 dark:text-gray-200">
+                  Address:
+                </span>{' '}
+                <span className="text-gray-600 dark:text-gray-300">
+                  {room.address}
+                </span>
               </li>
               <li>
-                <span className="font-semibold text-gray-800">Amenities:</span>{' '}
-                {room.amenities}
+                <span className="font-semibold text-gray-800 dark:text-gray-200">
+                  Amenities:
+                </span>{' '}
+                <span className="text-gray-600 dark:text-gray-300">
+                  {room.amenities}
+                </span>
               </li>
             </ul>
           </div>
