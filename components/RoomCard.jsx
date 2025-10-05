@@ -102,7 +102,7 @@ const RoomCard = ({ room }) => {
   };
 
   return (
-    <div className="bg-white shadow rounded-lg p-4 mt-4 flex flex-col sm:flex-row justify-between items-start sm:items-center">
+    <div className="bg-white dark:bg-gray-800 shadow rounded-lg p-4 mt-4 flex flex-col sm:flex-row justify-between items-start sm:items-center">
       <div className="flex flex-col sm:flex-row sm:space-x-4">
         <Image
           src={imageSrc}
@@ -112,19 +112,27 @@ const RoomCard = ({ room }) => {
           className="w-full sm:w-32 sm:h-32 mb-3 sm:mb-0 object-cover rounded-lg"
         />
         <div className="space-y-1">
-          <h4 className="text-lg font-semibold">{room.name}</h4>
-          <p className="text-sm text-gray-600">
-            <span className="font-semibold text-gray-800">Address:</span>{' '}
+          <h4 className="text-lg font-semibold text-gray-900 dark:text-white">
+            {room.name}
+          </h4>
+          <p className="text-sm text-gray-600 dark:text-gray-300">
+            <span className="font-semibold text-gray-800 dark:text-gray-200">
+              Address:
+            </span>{' '}
             {room.address}
           </p>
           <DynamicSchedule room={room} />
           <p className={`text-sm font-medium ${getAvailabilityColor()}`}>
-            <span className="font-semibold text-gray-800">Overall Status:</span>{' '}
+            <span className="font-semibold text-gray-800 dark:text-gray-200">
+              Overall Status:
+            </span>{' '}
             {getAvailabilityIcon()} {availabilityStatus.message}
           </p>
-          <p className="text-sm text-gray-600">
-            <span className="font-semibold text-gray-800">Price:</span> $
-            {room.price_per_hour}/hour
+          <p className="text-sm text-gray-600 dark:text-gray-300">
+            <span className="font-semibold text-gray-800 dark:text-gray-200">
+              Price:
+            </span>{' '}
+            ${room.price_per_hour}/hour
           </p>
         </div>
       </div>
